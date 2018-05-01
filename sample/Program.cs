@@ -14,6 +14,7 @@ namespace Sample
 
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
                 .Build();
 
             ILogger logger = new LoggerConfiguration()

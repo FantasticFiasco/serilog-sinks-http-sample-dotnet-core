@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+
+  sample:
+    build:
+      context: ./sample/
+    environment:
+      Serilog:WriteTo:0:Args:requestUri: "http://log-server:5000/log-events"
+
+  log-server:
+    build:
+      context: ./log-server/

@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="Bogus" Version="22.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="2.6.1" />
