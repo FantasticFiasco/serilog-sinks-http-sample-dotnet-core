@@ -10,8 +10,6 @@ namespace Sample
     {
         static void Main()
         {
-            Console.WriteLine("Starting application producing log events...");
-
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables()
