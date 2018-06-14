@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Serilog;
 
 namespace LogServer
 {
@@ -8,15 +9,16 @@ namespace LogServer
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Starting application consuming log events...");
-            
-            BuildWebHost(args).Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("http://+:5000")
-                .Build();
+                .UseSerilog((hostingContext, loggerConfiguration) =>
+                    loggerConfiguration
+                        .ReadFrom.Configuration(hostingContext.Configuration)
+                        .Enrich.FromLogContext())
+                .UseUrls("http://+:5000");
     }
 }
