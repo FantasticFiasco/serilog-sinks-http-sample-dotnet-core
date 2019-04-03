@@ -10,16 +10,15 @@ namespace Sample
     {
         static void Main()
         {
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables()
-                .Build();
-
             ILogger logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(configuration)
+                .WriteTo.DurableHttp(
+                    "http://log-server:5000/log-events",
+                    httpClient: new BasicAuthenticatedHttpClient("User1", "SecretPassword!"))
                 .CreateLogger()
                 .ForContext<Program>();
 
+            Serilog.Debugging.SelfLog.Enable(message => Console.WriteLine("Serilog SelfLog: " + message));
+            
             var customerGenerator = new CustomerGenerator();
             var orderGenerator = new OrderGenerator();
 

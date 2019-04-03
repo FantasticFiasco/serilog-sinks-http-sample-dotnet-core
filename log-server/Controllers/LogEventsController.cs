@@ -17,12 +17,8 @@ namespace LogServer.Controllers
         public void Post([FromBody] LogEvents body)
         {
             var nbrOfEvents = body.Events.Length;
-            var apiKey = Request.Headers["X-Api-Key"].FirstOrDefault();
             
-            logger.LogInformation(
-                "Received batch of {count} log events from {sender}",
-                nbrOfEvents,
-                apiKey);
+            logger.LogInformation("Received batch of {count} log events", nbrOfEvents);
             
             foreach (var logEvent in body.Events)
             {

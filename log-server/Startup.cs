@@ -16,6 +16,8 @@ namespace LogServer
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseMiddleware<BasicAuthMiddleware>("example-realm.com");
+            
             app.UseMvc();
         }
     }
