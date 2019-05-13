@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading;
-using Microsoft.Extensions.Configuration;
+﻿using System.Threading;
 using Sample.Generators;
+using Sample.Sink;
 using Serilog;
 
 namespace Sample
@@ -10,13 +9,9 @@ namespace Sample
     {
         static void Main()
         {
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables()
-                .Build();
-
-            ILogger logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(configuration)
+            var logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .WriteTo.Http("http://log-server:5000/log-events", httpClient: new CustomHttpClient())
                 .CreateLogger()
                 .ForContext<Program>();
 

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Serilog;
 
@@ -17,7 +16,7 @@ namespace LogServer
                 .UseStartup<Startup>()
                 .UseSerilog((hostingContext, loggerConfiguration) =>
                     loggerConfiguration
-                        .ReadFrom.Configuration(hostingContext.Configuration)
+                        .WriteTo.Console()
                         .Enrich.FromLogContext())
                 .UseUrls("http://+:5000");
     }
