@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Bogus" Version="29.0.2" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
-    <PackageReference Include="Serilog.Sinks.Http" Version="5.2.1" />
+    <PackageReference Include="Serilog.Sinks.Http" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
