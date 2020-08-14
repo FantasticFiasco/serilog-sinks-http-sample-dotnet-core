@@ -3,7 +3,7 @@
 #---------------------------------#
 
 # build worker image (VM template)
-image: Visual Studio 2017
+image: Visual Studio 2019
 
 #---------------------------------#
 #       build configuration       #
