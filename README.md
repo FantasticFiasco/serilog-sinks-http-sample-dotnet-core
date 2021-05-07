@@ -4,9 +4,11 @@
 
 This repository contains a sample application of [Serilog.Sinks.Http](https://github.com/FantasticFiasco/serilog-sinks-http) producing log events sent over HTTP to a basic log server.
 
+![Sample output](./assets/output.png)
+
 ## Running the application
 
-1. Run `docker-compose up`
+1. Run `docker compose up`
 
 What you will end up with is two containers, one producing log events while the other consumes the log events.
 
