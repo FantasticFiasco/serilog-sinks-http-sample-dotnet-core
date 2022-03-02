@@ -6,5 +6,5 @@ if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }
 
 docker-compose --version
 
-docker-compose build
+docker compose build
 if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }
