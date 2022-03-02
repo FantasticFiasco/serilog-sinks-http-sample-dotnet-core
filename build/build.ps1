@@ -3,8 +3,3 @@ Write-Host "$logo" -ForegroundColor Green
 
 dotnet build
 if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }
-
-docker-compose --version
-
-docker compose build
-if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }
