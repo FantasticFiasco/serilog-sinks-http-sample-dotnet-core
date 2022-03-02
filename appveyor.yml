@@ -1,14 +1,12 @@
-#---------------------------------#
-#    environment configuration    #
-#---------------------------------#
+image: ubuntu
 
-# build worker image (VM template)
-image: Visual Studio 2022
+stack:
+  - python 3.8
 
-#---------------------------------#
-#       build configuration       #
-#---------------------------------#
+services:
+  - docker
 
-# to run your custom scripts instead of automatic MSBuild
 build_script:
-  - ps: ./build/build.ps1
+  - ./build/build.sh
+
+test: off
