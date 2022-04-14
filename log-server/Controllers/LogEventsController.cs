@@ -14,9 +14,9 @@ namespace LogServer.Controllers
         }
 
         [HttpPost("log-events")]
-        public void Post([FromBody] LogEvents body)
+        public void Post([FromBody] LogEvent[] body)
         {
-            var nbrOfEvents = body.Events.Length;
+            var nbrOfEvents = body.Length;
             var apiKey = Request.Headers["X-Api-Key"].FirstOrDefault();
             
             logger.LogInformation(
@@ -24,7 +24,7 @@ namespace LogServer.Controllers
                 nbrOfEvents,
                 apiKey);
             
-            foreach (var logEvent in body.Events)
+            foreach (var logEvent in body)
             {
                 logger.LogInformation("Message: {message}", logEvent.RenderedMessage);
             }
