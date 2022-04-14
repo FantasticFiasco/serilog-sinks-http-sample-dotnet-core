@@ -11,7 +11,10 @@ namespace Sample
         {
             var logger = new LoggerConfiguration()
                 .WriteTo.Console()
-                .WriteTo.Http("http://log-server:5000/log-events", httpClient: new CustomHttpClient())
+                .WriteTo.Http(
+                    requestUri: "http://log-server:5000/log-events",
+                    queueLimitBytes: null,
+                    httpClient: new CustomHttpClient())
                 .CreateLogger()
                 .ForContext<Program>();
 
