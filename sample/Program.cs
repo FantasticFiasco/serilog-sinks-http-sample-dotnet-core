@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
+using Microsoft.Extensions.Configuration;
 using Sample.Generators;
 using Sample.Sink;
 using Serilog;
@@ -9,12 +11,20 @@ namespace Sample
     {
         static void Main()
         {
+            var configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(new[]
+                {
+                    new KeyValuePair<string, string>("apiKey", "secret-api-key")
+                })
+                .Build();
+
             var logger = new LoggerConfiguration()
                 .WriteTo.Console()
                 .WriteTo.Http(
                     requestUri: "http://log-server:5000/log-events",
                     queueLimitBytes: null,
-                    httpClient: new CustomHttpClient())
+                    httpClient: new CustomHttpClient(),
+                    configuration: configuration)
                 .CreateLogger()
                 .ForContext<Program>();
 
