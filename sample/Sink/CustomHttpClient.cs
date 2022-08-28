@@ -1,5 +1,6 @@
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Serilog.Sinks.Http;
@@ -17,13 +18,10 @@ namespace Sample.Sink
         public async Task<HttpResponseMessage> PostAsync(string requestUri, Stream contentStream)
         {
             using var content = new StreamContent(contentStream);
-            content.Headers.Add("Content-Type", "application/json");
 
-            var response = await httpClient
-                .PostAsync(requestUri, content)
-                .ConfigureAwait(false);
-
-            return response;
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var result = await httpClient.PostAsync(requestUri, content);
+            return result;
         }
 
         public void Dispose() => httpClient?.Dispose();

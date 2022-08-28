@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Sample.Generators;
 using Sample.Sink;
 using Serilog;
+using Serilog.Events;
 
 namespace Sample
 {
@@ -22,8 +23,9 @@ namespace Sample
                 .WriteTo.Console()
                 .WriteTo.Http(
                     requestUri: "http://log-server:5000/log-events",
-                    queueLimitBytes: null,
+                    restrictedToMinimumLevel: LogEventLevel.Information,
                     httpClient: new CustomHttpClient(),
+                    queueLimitBytes: null,
                     configuration: configuration)
                 .CreateLogger()
                 .ForContext<Program>();
@@ -36,7 +38,7 @@ namespace Sample
                 var customer = customerGenerator.Generate();
                 var order = orderGenerator.Generate();
 
-                logger.Information("{@customer} placed {@order}", customer, order);
+                logger.Error("{@customer} placed {@order}", customer, order);
 
                 Thread.Sleep(1000);
             }
