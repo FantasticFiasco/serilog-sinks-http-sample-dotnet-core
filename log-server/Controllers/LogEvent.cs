@@ -1,6 +1,4 @@
-using System;
-
-namespace LogServer.Controllers
+namespace Controllers
 {
     public class LogEvent
     {

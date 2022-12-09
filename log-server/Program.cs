@@ -1,23 +1,16 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Serilog;
+﻿using Serilog;
 
-namespace LogServer
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .Enrich.FromLogContext()
+    .CreateLogger();
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseSerilog((hostingContext, loggerConfiguration) =>
-                    loggerConfiguration
-                        .WriteTo.Console()
-                        .Enrich.FromLogContext())
-                .UseUrls("http://+:5000");
-    }
-}
+var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog();
+builder.Services.AddControllers();
+var app = builder.Build();
+
+app.MapControllers();
+
+app.Run("http://+:5000");
+
