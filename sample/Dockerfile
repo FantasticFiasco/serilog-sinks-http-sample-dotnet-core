@@ -1,7 +1,17 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine
+# Build stage
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /source
 
-WORKDIR /dotnetapp
+COPY --link *.csproj .
+RUN dotnet restore
 
-COPY . .
-RUN dotnet publish -c Release -o out
-ENTRYPOINT ["dotnet", "out/Sample.dll"]
+COPY --link . .
+RUN dotnet publish --no-restore -o /app
+
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/runtime:10.0
+WORKDIR /app
+
+COPY --link --from=build /app .
+USER $APP_UID
+ENTRYPOINT ["./Sample"]
